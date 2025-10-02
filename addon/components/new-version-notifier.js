@@ -27,14 +27,16 @@ export default class NewVersionNotifier extends Component {
   }
 
   @action
-  close() {
+  close(event) {
+    event.preventDefault();
     this.newVersion.ignoreVersion(this.newVersion.latestVersion);
 
     return false;
   }
 
   @action
-  reload() {
+  reload(event) {
+    event.preventDefault();
     if (typeof window !== 'undefined' && window.location) {
       window.location.reload(true);
     }

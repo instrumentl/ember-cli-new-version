@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-new-version",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "A convention based update notification for Ember. With this addon, you can detect a new version and notify the user to refresh the page",
   "scripts": {
     "build": "ember build --environment=production",
@@ -17,7 +17,7 @@
     "release": "standard-version"
   },
   "engines": {
-    "node": "12.* || 14.* || >= 16"
+    "node": ">= 20"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
@@ -26,7 +26,6 @@
     "@embroider/test-setup": "^1.5.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-auto-import": "^2.4.1",
     "ember-cli": "~3.28.4",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-inject-live-reload": "^2.1.0",
@@ -79,6 +78,7 @@
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "broccoli-file-creator": "^2.1.1",
+    "ember-auto-import": "^2.4.1",
     "ember-cli-babel": "^7.26.6",
     "ember-cli-htmlbars": "^5.7.1",
     "ember-concurrency": "^2.0.3",
@@ -91,6 +91,6 @@
     "configPath": "tests/dummy/config"
   },
   "volta": {
-    "node": "14.18.1"
+    "node": "20.18.0"
   }
 }

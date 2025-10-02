@@ -45,13 +45,12 @@ module('Unit | Service | new-version', function (hooks) {
   });
 
   test('it calls onNewVersion when a new version is detected', async function (assert) {
-    assert.expect(4);
-    let done = assert.async(2);
+    assert.expect(22);
 
     let callCount = 0;
 
     this.server.get('/VERSION.txt', function () {
-      ++callCount;
+      callCount++;
       return `v1.0.${callCount}`;
     });
 
@@ -61,15 +60,14 @@ module('Unit | Service | new-version', function (hooks) {
         onNewVersion(newVersion, oldVersion) {
           assert.equal(
             newVersion,
-            'v1.0.2',
-            'newVersion v1.0.2 is sent to onNewVersion'
+            `v1.0.${callCount}`,
+            `newVersion v1.0.${callCount} is sent to onNewVersion`
           );
           assert.equal(
             oldVersion,
             'v1.0.1',
             'oldVersion v1.0.1 is sent to onNewVersion'
           );
-          done();
         }
       }
     );
@@ -81,8 +79,6 @@ module('Unit | Service | new-version', function (hooks) {
 
     await waitUntil(() => callCount === 2, { timeout: 190 });
     assert.equal(callCount, 2);
-
-    done();
   });
 
   test('it calls onError when request fails', async function (assert) {
