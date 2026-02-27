@@ -5,8 +5,6 @@ import { waitFor } from '@ember/test-waiters';
 import { tracked } from '@glimmer/tracking';
 import Ember from 'ember';
 import { task, timeout } from 'ember-concurrency';
-import fetch from 'fetch';
-
 let taskRunCounter = 0;
 const ONE_MINUTE = 60000;
 
