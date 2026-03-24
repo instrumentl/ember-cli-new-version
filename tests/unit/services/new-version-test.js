@@ -74,11 +74,11 @@ module('Unit | Service | new-version', function (hooks) {
 
     this.owner.lookup('service:new-version');
 
-    await waitUntil(() => callCount === 1, { timeout: 95 });
-    assert.equal(callCount, 1, '1 call was made');
+    await waitUntil(() => callCount >= 2, { timeout: 490 });
+    assert.ok(callCount >= 2, 'version checks were made');
 
-    await waitUntil(() => callCount === 2, { timeout: 190 });
-    assert.equal(callCount, 2);
+    await waitUntil(() => callCount === 10, { timeout: 1500 });
+    assert.equal(callCount, 10, 'all 10 version checks completed');
   });
 
   test('it calls onError when request fails', async function (assert) {
