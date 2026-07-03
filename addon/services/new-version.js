@@ -1,3 +1,4 @@
+import fetch from 'fetch';
 import { getOwner } from '@ember/application';
 import { later } from '@ember/runloop';
 import Service from '@ember/service';
