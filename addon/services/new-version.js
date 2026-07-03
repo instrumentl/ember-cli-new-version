@@ -1,4 +1,3 @@
-import fetch from 'fetch';
 import { getOwner } from '@ember/application';
 import { later } from '@ember/runloop';
 import Service from '@ember/service';
@@ -75,7 +74,10 @@ export default class NewVersionService extends Service {
   get url() {
     const versionFileName = this._newVersionConfig.versionFileName;
     const baseUrl =
-      this._config.prepend || this._config.rootURL || this._config.baseURL || '/';
+      this._config.prepend ||
+      this._config.rootURL ||
+      this._config.baseURL ||
+      '/';
     return baseUrl + versionFileName;
   }
 
@@ -108,7 +110,7 @@ export default class NewVersionService extends Service {
           () => {
             this.updateVersion.perform();
           },
-          this._newVersionConfig.firstCheckInterval
+          this._newVersionConfig.firstCheckInterval,
         );
       } else {
         this.updateVersion.perform();
@@ -122,7 +124,13 @@ export default class NewVersionService extends Service {
     const url = this.url;
 
     try {
-      yield fetch(url + '?_=' + Date.now())
+      yield (
+        typeof fetch === 'function'
+          ? fetch
+          : typeof window !== 'undefined' && typeof window.fetch === 'function'
+            ? window.fetch.bind(window)
+            : () => Promise.reject(new Error('fetch is not available'))
+      )(url + '?_=' + Date.now())
         .then((response) => {
           if (!response.ok) throw new Error(response.statusText);
           return response.text();
@@ -135,7 +143,7 @@ export default class NewVersionService extends Service {
             this.onNewVersion(
               this.latestVersion,
               this.ignoredVersions[this.ignoredVersions.length - 1] ||
-                this.currentVersion
+                this.currentVersion,
             );
           }
         });
